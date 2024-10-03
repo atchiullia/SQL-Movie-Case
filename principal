@@ -1,0 +1,9 @@
+-- distribution of movies by genre --
+
+SELECT Genre, COUNT(*) AS MovieCount
+FROM imdb_top_1000
+GROUP BY Genre
+ORDER BY MovieCount DESC
+LIMIT 10;
+
+

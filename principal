@@ -6,4 +6,31 @@ GROUP BY Genre
 ORDER BY MovieCount DESC
 LIMIT 10;
 
+-- find the average for each genre --
 
+SELECT Genre, AVG (IMDB_Rating) AS AvgRating
+FROM imdb_top_1000
+GROUP BY Genre
+HAVING AVG(IMDB_Rating) IS NOT NULL;
+
+-- sorts the movies by box office revenue in descending order and limits the result to the top 10 --
+
+SELECT Series_Title, Gross
+FROM imdb_top_1000
+WHERE Gross IS NOT NULL
+ORDER BY Gross DESC
+LIMIT 10;
+
+-- create new backup table --
+CREATE TABLE Movies1 AS SELECT * FROM imdb_top_1000
+
+ALTER TABLE Movies1 ADD COLUMN Gross_Numeric INT;
+
+UPDATE Movies1 
+SET Gross_Numeric = CAST(Gross AS INT);
+
+SELECT Series_Title, Gross_Numeric
+FROM Movies1
+WHERE Gross_Numeric IS NOT NULL
+ORDER BY Gross_Numeric DESC
+LIMIT 10;
